@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace CoffeeShop.Application.Commands.CoffeeCommand;
+namespace CoffeeShop.Application.Commands.CoffeeCommands;
 
 public class DeleteCoffeeByIdCommand : IRequest<Unit>
 {

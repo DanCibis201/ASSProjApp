@@ -3,7 +3,7 @@ using CoffeeShop.Core.Models;
 using CoffeeShop.Infrastructure.Repositories;
 using MediatR;
 
-namespace CoffeeShop.Application.Handlers.CoffeeHandler
+namespace CoffeeShop.Application.Handlers.CoffeeHandlers
 {
     public class CreateCoffeeHandler : IRequestHandler<CreateCoffeeCommand, Unit>
     {

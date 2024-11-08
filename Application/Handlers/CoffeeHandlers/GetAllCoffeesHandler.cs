@@ -1,9 +1,9 @@
-﻿using CoffeeShop.Application.Queries.CoffeeQuery;
+﻿using CoffeeShop.Application.Queries.CoffeeQueries;
 using CoffeeShop.Core.Models;
 using CoffeeShop.Infrastructure.Repositories;
 using MediatR;
 
-namespace CoffeeShop.Application.Handlers;
+namespace CoffeeShop.Application.Handlers.CoffeeHandlers;
 
 public class GetAllCoffeesHandler : IRequestHandler<GetAllCoffeesQuery, IEnumerable<Coffee>>
 {
