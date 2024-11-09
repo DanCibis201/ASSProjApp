@@ -1,7 +1,7 @@
 ﻿using CoffeeShop.Core.Models;
 using CoffeeShop.Infrastructure.Queries;
 
-namespace CoffeeShop.Application.Queries.CoffeeQuery;
+namespace CoffeeShop.Application.Queries.CoffeeQueries;
 
 public class GetCoffeeByIdQuery : IQuery<Coffee>
 {

@@ -3,6 +3,7 @@ using CoffeeShop.Database.Context;
 using CoffeeShop.Database.Repositories;
 using CoffeeShop.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CoffeeAppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().
+    AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 
 builder.Services.AddScoped<IRepository<Coffee>, CoffeeRepository>();
+builder.Services.AddScoped<IRepository<Review>, ReviewRepository>();
 
 builder.Services.AddMediatR(cfg =>
 {

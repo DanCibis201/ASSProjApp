@@ -1,9 +1,9 @@
-﻿using CoffeeShop.Application.Commands.CoffeeCommand;
+﻿using CoffeeShop.Application.Commands.CoffeeCommands;
 using CoffeeShop.Core.Models;
 using CoffeeShop.Infrastructure.Repositories;
 using MediatR;
 
-namespace CoffeeShop.Application.Handlers.CoffeeHandler;
+namespace CoffeeShop.Application.Handlers.CoffeeHandlers;
 
 public class DeleteCoffeeByIdHandler : IRequestHandler<DeleteCoffeeByIdCommand, Unit>
 {

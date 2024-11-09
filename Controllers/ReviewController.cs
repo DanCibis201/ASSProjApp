@@ -1,5 +1,7 @@
 ﻿using CoffeeShop.Application.Commands.CoffeeCommands;
+using CoffeeShop.Application.Commands.ReviewCommands;
 using CoffeeShop.Application.Queries.CoffeeQueries;
+using CoffeeShop.Application.Queries.ReviewQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,20 +9,20 @@ namespace CoffeeShop.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CoffeeController : ControllerBase
+public class ReviewController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    private readonly ILogger<CoffeeController> _logger;
+    private readonly ILogger<ReviewController> _logger;
 
-    public CoffeeController(IMediator mediator, ILogger<CoffeeController> logger)
+    public ReviewController(IMediator mediator, ILogger<ReviewController> logger)
     {
         _mediator = mediator;
         _logger = logger;
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCoffeeBrand(CreateCoffeeCommand command)
+    public async Task<IActionResult> AddReview(CreateReviewCommand command)
     {
         try
         {
@@ -35,16 +37,16 @@ public class CoffeeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllCoffees()
+    public async Task<IActionResult> GetAllReviews()
     {
         try
         {
-            var result = await _mediator.Send(new GetAllCoffeesQuery());
+            var result = await _mediator.Send(new GetAllReviewsQuery());
             return Ok(result);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error while getting all coffees. Error message: {ex.Message}");
+            _logger.LogError($"Error while getting all reviews. Error message: {ex.Message}");
             throw;
         }
     }
@@ -54,7 +56,7 @@ public class CoffeeController : ControllerBase
     {
         try
         {
-            var result = await _mediator.Send(new GetCoffeeByIdQuery(id));
+            var result = await _mediator.Send(new GetReviewByIdQuery(id));
             if (result is not null)
                 return Ok(result);
             else
@@ -68,11 +70,11 @@ public class CoffeeController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCoffeeById([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteReviewById([FromRoute] Guid id)
     {
         try
         {
-            await _mediator.Send(new DeleteCoffeeByIdCommand(id));
+            await _mediator.Send(new DeleteReviewByIdCommand(id));
             return NoContent();
         }
         catch (Exception ex)
@@ -83,7 +85,7 @@ public class CoffeeController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCoffeeById([FromRoute] Guid id, [FromBody] UpdateCoffeeCommand command)
+    public async Task<IActionResult> UpdateReviewById([FromRoute] Guid id, [FromBody] UpdateReviewCommand command)
     {
         if (id != command.Id)
         {
