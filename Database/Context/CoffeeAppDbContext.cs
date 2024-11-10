@@ -31,6 +31,9 @@ public class CoffeeAppDbContext : DbContext
             .Property(c => c.Price)
             .HasColumnType("decimal(18,2)"); 
         modelBuilder.Entity<Coffee>()
+            .Property(c => c.Description)
+            .HasColumnType("nvarchar(max)");
+        modelBuilder.Entity<Coffee>()
             .Property(c => c.ImageUrl)
             .HasColumnType("nvarchar(max)");
         #endregion

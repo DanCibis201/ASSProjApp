@@ -24,6 +24,7 @@ public class UpdateCoffeeHandler : IRequestHandler<UpdateCoffeeCommand, Unit>
 
         coffee.Name = request.Name;
         coffee.Price = request.Price;
+        coffee.Description = request.Description;
         coffee.ImageUrl = request.ImageUrl;
 
         await _repository.UpdateAsync(coffee);
