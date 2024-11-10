@@ -20,10 +20,22 @@ builder.Services.AddControllers().
 
 builder.Services.AddScoped<IRepository<Coffee>, CoffeeRepository>();
 builder.Services.AddScoped<IRepository<Review>, ReviewRepository>();
+builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
 
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+});
+
+var corsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins(corsOrigins)
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
 });
 
 // Add Swagger/OpenAPI
@@ -31,6 +43,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

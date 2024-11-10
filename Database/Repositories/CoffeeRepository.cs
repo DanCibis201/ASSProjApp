@@ -22,6 +22,7 @@ public class CoffeeRepository : IRepository<Coffee>
         {
             return await _context.Coffees
                 .Include(r => r.Reviews)
+                .Include(o => o.Orders)
                 .FirstOrDefaultAsync(c => c.Id == id)!;
         }
         catch (Exception ex)
@@ -37,6 +38,7 @@ public class CoffeeRepository : IRepository<Coffee>
         {
             return await _context.Coffees
                 .Include(r => r.Reviews)
+                .Include(o => o.Orders)
                 .ToListAsync();
         }
         catch (Exception ex)

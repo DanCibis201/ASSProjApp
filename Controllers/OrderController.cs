@@ -1,5 +1,5 @@
-﻿using CoffeeShop.Application.Commands.ReviewCommands;
-using CoffeeShop.Application.Queries.ReviewQueries;
+﻿using CoffeeShop.Application.Commands.OrderCommands;
+using CoffeeShop.Application.Queries.OrderQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,19 +7,19 @@ namespace CoffeeShop.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ReviewController : ControllerBase
+public class OrderController : ControllerBase
 {
     private readonly IMediator _mediator;
-    private readonly ILogger<ReviewController> _logger;
+    private readonly ILogger<OrderController> _logger;
 
-    public ReviewController(IMediator mediator, ILogger<ReviewController> logger)
+    public OrderController(IMediator mediator, ILogger<OrderController> logger)
     {
         _mediator = mediator;
         _logger = logger;
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddReview(CreateReviewCommand command)
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand command)
     {
         try
         {
@@ -28,32 +28,32 @@ public class ReviewController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error while submitting request. Error message {ex.Message}");
+            _logger.LogError($"Error while creating order. Error message: {ex.Message}");
             throw;
         }
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllReviews()
+    public async Task<IActionResult> GetAllOrders()
     {
         try
         {
-            var result = await _mediator.Send(new GetAllReviewsQuery());
+            var result = await _mediator.Send(new GetAllOrdersQuery());
             return Ok(result);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error while getting all reviews. Error message: {ex.Message}");
+            _logger.LogError($"Error while getting all the orders. Error message: {ex.Message}");
             throw;
         }
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCoffeeById([FromRoute] Guid id)
+    public async Task<IActionResult> GetOrderById([FromRoute] Guid id)
     {
         try
         {
-            var result = await _mediator.Send(new GetReviewByIdQuery(id));
+            var result = await _mediator.Send(new GetOrderByIdQuery(id));
             if (result is not null)
                 return Ok(result);
             else
@@ -67,22 +67,22 @@ public class ReviewController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteReviewById([FromRoute] Guid id)
+    public async Task<IActionResult> DeleteOrderById([FromRoute] Guid id)
     {
         try
         {
-            await _mediator.Send(new DeleteReviewByIdCommand(id));
+            await _mediator.Send(new DeleteOrderByIdCommand(id));
             return NoContent();
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error while deleting review. Error message: {ex.Message}");
+            _logger.LogError($"Error while deleting coffee. Error message: {ex.Message}");
             throw;
         }
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateReviewById([FromRoute] Guid id, [FromBody] UpdateReviewCommand command)
+    public async Task<IActionResult> UpdateOrderById([FromRoute] Guid id, [FromBody] UpdateOrderCommand command)
     {
         if (id != command.Id)
         {
@@ -96,12 +96,12 @@ public class ReviewController : ControllerBase
         }
         catch (KeyNotFoundException ex)
         {
-            _logger.LogError($"Error while updating review. Error message: {ex.Message}");
+            _logger.LogError($"Error while updating order. Error message: {ex.Message}");
             return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Error while updating review. Error message: {ex.Message}");
+            _logger.LogError($"Error while updating order. Error message: {ex.Message}");
             throw;
         }
     }
