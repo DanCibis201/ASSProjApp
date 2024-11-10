@@ -1,4 +1,6 @@
-﻿namespace CoffeeShop.Core.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CoffeeShop.Core.Models;
 
 public class Review
 {
@@ -6,6 +8,8 @@ public class Review
     public Guid CoffeeId { get; set; }
     public string? UserName { get; set; }
     public string Comment { get; set; }
+
+    [Range(1, 10, ErrorMessage = "Rating must be between 1 and 10")]
     public int Rating { get; set; }
 
     public Coffee? Coffee { get; set; }

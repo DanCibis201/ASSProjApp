@@ -20,7 +20,9 @@ namespace CoffeeShop.Application.Handlers.CoffeeHandlers
             {
                 Id = Guid.NewGuid(),
                 Name = request.Name,
-                Price = request.Price
+                Price = request.Price,
+                Description = request.Description,
+                ImageUrl = request.ImageUrl
             };
 
             await _repository.AddAsync(coffee);

@@ -10,7 +10,6 @@ namespace CoffeeShop.Controllers;
 public class CoffeeController : ControllerBase
 {
     private readonly IMediator _mediator;
-
     private readonly ILogger<CoffeeController> _logger;
 
     public CoffeeController(IMediator mediator, ILogger<CoffeeController> logger)
