@@ -12,8 +12,8 @@ public class UpdateOrderCommand : IRequest<Unit>
     public UpdateOrderCommand(Guid id, Guid coffeeId, int quantity, DateTime orderDate)
     {
         Id = id;
-        coffeeId = CoffeeId;
-        quantity = Quantity;
+        CoffeeId = coffeeId;
+        Quantity = quantity;
         OrderDate = orderDate;
     }
 }
